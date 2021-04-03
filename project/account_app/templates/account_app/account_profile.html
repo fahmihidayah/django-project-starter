@@ -1,0 +1,9 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
+{% block content_title %} Profile{% endblock content_title %}
+{% block content %}
+<a class="btn btn-success pull-right" href="{% url 'user_change_password'%}">Change password</a>
+<br>
+{% crispy form %}
+
+{% endblock %}

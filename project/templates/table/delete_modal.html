@@ -1,0 +1,4 @@
+<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-name="{{ record.title }}" data-id="{{ record.pk }}"  data-target="#confirmation-modal">Delete</button>
+<form action="{{ record.get_delete_url }}" id="form-delete-{{record.pk}}" method="post" data-id="{{ record.pk }}"  >
+    {% csrf_token %}
+</form>

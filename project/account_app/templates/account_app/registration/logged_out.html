@@ -1,0 +1,7 @@
+{% extends 'account_app/registration/base.html' %}
+{% load crispy_forms_tags %}
+{% block container_title %}You're Logout{% endblock container_title %}
+{% block container %}
+    <p>You're logout!</p>
+    <a class="btn btn-primary" href="{% url 'index' %}">Home</a>
+{% endblock container %}
