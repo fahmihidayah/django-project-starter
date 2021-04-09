@@ -3,8 +3,9 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, HTML, Submit, Div
 from django.shortcuts import reverse
 from django import forms
-from .models import UserModel
+from .models import UserModel, Profile
 from django.core.exceptions import ValidationError
+from .repositories import ProfileRepository
 
 from django.contrib.auth import (
     authenticate, get_user_model, password_validation,
@@ -42,6 +43,7 @@ class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.profile_repository : ProfileRepository = ProfileRepository()
         self.helper.layout = Layout(
             Field("email", placeholder="Enter Email", autofocus=""),
             Div(
@@ -75,6 +77,7 @@ class SignUpForm(UserCreationForm):
         object.username = object.email
         if commit:
             object.save()
+            self.profile_repository.get_user_profile(object)
         return object
 
     class Meta:
@@ -93,6 +96,7 @@ class UserPasswordChangeForm(PasswordChangeForm):
             Field("new_password2", autofocus=""),
             Submit("change", "Change Password", css_class="btn btn-warning"),
         )
+        self.helper.form_tag = False
 
 
 class UpdateUserForm(forms.ModelForm):
@@ -103,13 +107,39 @@ class UpdateUserForm(forms.ModelForm):
         self.helper = FormHelper()
 
         self.helper.layout = Layout(
-            Field("username", placeholder="Enter Email", autofocus=""),
+            Field("email", placeholder="Enter Email", autofocus=""),
             Field("first_name"),
             Field("last_name"),
-
-            Submit("update", "Update", css_class="btn btn-primary"),
+            Field("phone"),
         )
+
+        self.helper.form_tag = False
+
+    def save(self, commit=True):
+        user = super(UpdateUserForm, self).save(False)
+        user.username = user.email
+        if commit:
+            user.save()
+        return user
 
     class Meta:
         model = UserModel
-        fields = ('username', 'first_name', "last_name")
+        fields = ('email', 'first_name', "last_name")
+
+
+class UpdateProfileForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateProfileForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+
+        self.helper.layout = Layout(
+            Field("phone"),
+        )
+        self.helper.form_tag = False
+
+    class Meta:
+        model = Profile
+        fields = ('phone',)
+

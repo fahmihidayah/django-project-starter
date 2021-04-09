@@ -4,6 +4,11 @@
 {% block content %}
 <a class="btn btn-success pull-right" href="{% url 'user_change_password'%}">Change password</a>
 <br>
-{% crispy form %}
+<form method="post" action="{% url 'account_profile' %}">
+    {% crispy form %}
+    {% crispy profile_form %}
+    {% csrf_token %}
+    <button class="btn btn-primary " type="submit" value="Update">Update</button>
+</form>
 
 {% endblock %}

@@ -22,3 +22,19 @@ class EmailBackend(ModelBackend):
             if user.check_password(password):
                 return user
         return None
+
+
+class Profile(models.Model):
+    phone = models.CharField(max_length=10, default='')
+    picture = models.ImageField(
+        "Profile picture", upload_to="profile_pics/%Y-%m-%d/", null=True, blank=True
+    )
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True
+    )
+    # READ-ONLY
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+
+    # READ-ONLY
+    updated = models.DateTimeField(auto_now=True, editable=False)
