@@ -49,7 +49,8 @@ class AccountProfileView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(AccountProfileView, self).get_context_data(**kwargs)
         if 'profile_form' not in kwargs:
-            context['profile_form'] = UpdateProfileForm(instance=self.profile_repository.get_user_profile(self.request.user))
+            context['profile_form'] = UpdateProfileForm(
+                instance=self.profile_repository.get_user_profile(self.request.user))
         return context
 
     def post(self, request, *args, **kwargs):
@@ -58,7 +59,6 @@ class AccountProfileView(LoginRequiredMixin, UpdateView):
         profile_form: UpdateProfileForm = UpdateProfileForm(data=self.request.POST,
                                                             instance=self.profile_repository.get_user_profile(
                                                                 self.request.user))
-
         if form.is_valid() and profile_form.is_valid():
             profile_form.save()
             return self.form_valid(form)

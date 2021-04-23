@@ -7,8 +7,10 @@ pytz==2020.4
 django_tables2==2.3.3
 django-role-permissions==2.2.1
 django-extensions==2.1.5
-djangorestframework==3.9.1
+djangorestframework==3.12.4
 gunicorn==19.9.0
 django-guardian
 uwsgi
 django-tinymce
+djangorestframework-simplejwt
+djoser
