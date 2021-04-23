@@ -2,11 +2,7 @@ from rest_framework import generics, status, views, viewsets
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from djoser.views import TokenCreateView
-from djoser import utils
-from djoser.conf import settings
 from rest_framework.response import Response
-from djoser import signals, utils
 from .models import UserModel
 from .serializers import UserSerializer, CreateUserSerializer
 from project.api_utils import get_response, get_error_response
