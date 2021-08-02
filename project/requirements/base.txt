@@ -14,3 +14,8 @@ uwsgi
 django-tinymce
 djangorestframework-simplejwt
 djoser
+pytest
+pytest-django
+pytest-pythonpath
+pytest-cov
+mixer
