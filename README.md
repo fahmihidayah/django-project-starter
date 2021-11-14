@@ -5,7 +5,7 @@
 project is a _short description_. It is built with [Python][0] using the [Django Web Framework][1].
 
 ## Installation
-    django-admin startproject --template https://github.com//fahmihidayah/djarter/archive/master.zip django_project .
+    django-admin startproject --template https://github.com//fahmihidayah/django-project-starter/archive/master.zip django_project .
 ### Quick start
 
 To set up a development environment quickly, first install Python 3. It
