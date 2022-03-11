@@ -1,0 +1,49 @@
+version: '3.8'
+
+#volumes:
+#  bitnami_mysql:
+#    name: my_volume_mysql
+
+
+
+services:
+
+  web:
+    image: blog-content
+    volumes:
+      - ./:/app
+    command: gunicorn -c gunicorn.conf.py project.wsgi
+    ports:
+      - "8000:8000"
+
+  nginx:
+    image: nginx
+
+    volumes:
+      - ./:/home
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "8001:80"
+#    depends_on:
+#      - db
+
+
+
+
+#    ports:
+#      - 8000:8000
+
+#  nginx:
+#    image: nginx:1.13
+#    ports:
+#      - 8000:80
+#    volumes:
+#      - ./config/nginx/conf.d:/etc/nginx/conf.d
+#    depends_on:
+#      - web
+#    networks:  # <-- here
+#      - nginx_network
+#
+#networks:  # <-- and here
+#  nginx_network:
+#    driver: bridge
